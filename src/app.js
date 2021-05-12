@@ -20,7 +20,7 @@ app.use(cookieSession({
 app.use("/api/v1", router);
 
 app.get("/", (req, res) => {
-  res.send("Welcome to Annoymous reporting system");
+  res.send("Welcome to Annoymous reporting system.");
 });
 
 app.listen(port, () => {
