@@ -1,7 +1,7 @@
 # anonymous-reporting-system
 
 [![Coverage Status](https://coveralls.io/repos/github/donaldcrane/anonymous-reporting-system/badge.svg?branch=main)](https://coveralls.io/github/donaldcrane/anonymous-reporting-system?branch=main)
-anonymous-reporting-system is a RESTful API that allows users post live event anonymously..
+anonymous-reporting-system is a RESTful API that allows users post live event  withouts their details being saved anonymously..
 
 
 # Documentation
