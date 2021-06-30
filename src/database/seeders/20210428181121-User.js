@@ -44,9 +44,9 @@ module.exports = {
       lastName: "Paul",
       createdAt: new Date(),
       updatedAt: new Date(),
-    }
-    
-    ,], 
+    },
+
+    ],
     {});
   },
 
