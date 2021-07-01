@@ -7,6 +7,11 @@ const validation = post => {
         "any.required": "Post is required.",
         "string.empty": "Sorry, post cannot be an empty field."
       }),
+    description: Joi.string().empty().required()
+      .messages({
+        "any.required": "description is required.",
+        "string.empty": "Sorry, description cannot be an empty field."
+      }),
     media: Joi.string().empty()
       .messages({
         "any.required": "A media is required.",

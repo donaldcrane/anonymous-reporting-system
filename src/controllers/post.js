@@ -18,13 +18,13 @@ export default class PostController {
    */
   static async addPost(req, res) {
     try {
-      const { post } = req.body;
+      const { post, description } = req.body;
       const { error } = validation(req.body);
       if (error) {
         return res.status(400).json({ status: 400, error: error.message });
       }
       if (!req.file) return res.status(401).json({ error: true, message: "Please provide an image." });
-      const newPost = { post, media: req.file.path };
+      const newPost = { post, description, media: req.file.path };
       const createdPost = await addPost(newPost);
       return res.status(201).json({ status: 201, message: "A Post has been added.", data: createdPost, });
     } catch (error) {
