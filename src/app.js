@@ -21,8 +21,8 @@ app.use("/api/v1", router);
 app.get("/", (req, res) => {
   res.send("Welcome to Annoymous reporting system.");
 });
-
 const port = process.env.PORT || 5000;
+
 app.listen(port, () => {
   console.log(`Server Running on: ${port}`);
 });
