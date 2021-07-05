@@ -16,9 +16,14 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    media: {
-      type: DataTypes.STRING,
-      allowNull: false,
+    images: {
+      type: DataTypes.ARRAY(DataTypes.TEXT)
+    },
+    audios: {
+      type: DataTypes.ARRAY(DataTypes.TEXT)
+    },
+    videos: {
+      type: DataTypes.ARRAY(DataTypes.TEXT)
     },
     likes: {
       type: DataTypes.INTEGER,

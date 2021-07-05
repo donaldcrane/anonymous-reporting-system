@@ -23,8 +23,24 @@ export default class PostController {
       if (error) {
         return res.status(400).json({ status: 400, error: error.message });
       }
-      if (!req.file) return res.status(401).json({ error: true, message: "Please provide an image." });
-      const newPost = { post, description, media: req.file.path };
+      if (!req.files) return res.status(401).json({ error: true, message: "Please provide an image." });
+      let images = [];
+      let videos = [];
+      let audios = [];
+      if (req.files) {
+        if (req.files.images) {
+          images = req.files.images.map(image => image.path);
+        }
+        if (req.files.videos) {
+          videos = req.files.videos.map(video => video.path);
+        }
+        if (req.files.audios) {
+          audios = req.files.audios.map(audio => audio.path);
+        }
+      }
+      const newPost = {
+        post, description, images, audios, videos
+      };
       const createdPost = await addPost(newPost);
       return res.status(201).json({ status: 201, message: "A Post has been added.", data: createdPost, });
     } catch (error) {

@@ -13,7 +13,20 @@ router.get("/posts", getPosts);
 router.get("/posts-nonverified", getNonVerifiedPosts);
 router.get("/post/:id", getPostById);
 
-router.post("/post", parser.single("media"), addPost);
+router.post("/post", parser.fields([
+  {
+    name: "images",
+    maxCount: 10,
+  },
+  {
+    name: "audios",
+    maxCount: 10,
+  },
+  {
+    name: "videos",
+    maxCount: 10,
+  },
+]), addPost);
 
 router.patch("/like-post/:id", likedPost);
 router.patch("/post/:id", verifyToken, verifyPost);

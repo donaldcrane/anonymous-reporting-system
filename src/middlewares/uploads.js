@@ -13,11 +13,11 @@ v2.config({
 const storage = new CloudinaryStorage({
   cloudinary: v2,
   folder: "uploads",
-  allowedFormats: ["jpg", "png", "pdf"],
-  quality_analysis: true,
-  transformation: [{
-    width: "315", crop: "fill", gravity: "faces", radius: 50, effect: "saturation:50", height: "250"
-  }]
+  // allowedFormats: ["jpg", "png", "pdf"],
+  // quality_analysis: true,
+  // transformation: [{
+  //   width: "315", crop: "fill", gravity: "faces", radius: 50, effect: "saturation:50", height: "250"
+  // }]
 });
 const parser = multer({ storage });
 
