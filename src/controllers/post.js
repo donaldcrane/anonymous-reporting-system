@@ -100,7 +100,7 @@ export default class PostController {
       const Posts = await getNonVerifiedPosts();
       res.status(200).json({
         status: 200,
-        message: "Successfully retrieved all Posts.",
+        message: "Successfully retrieved all Non Verified Posts.",
         data: Posts,
       });
     } catch (error) {
