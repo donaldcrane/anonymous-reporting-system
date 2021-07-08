@@ -33,7 +33,6 @@ export default class PostController {
       const newPost = {
         post, description, media
       };
-      console.log(newPost);
       const createdPost = await addPost(newPost);
       return res.status(201).json({ status: 201, message: "A Post has been added.", data: createdPost, });
     } catch (error) {
