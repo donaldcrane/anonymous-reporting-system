@@ -3,18 +3,11 @@ module.exports = {
     await queryInterface.bulkInsert("Posts", [
       {
       id: "c375c640-81ff-405a-89a8-460ea2f71755",
-      images: [
+      media: [
           "https://res.cloudinary.com/obioflagos/image/upload/v1625511995/c42vafrtwqqf5fqszjfi.jpg",
           "https://res.cloudinary.com/obioflagos/image/upload/v1625511996/yw583airzfvcer5eoq5e.jpg"
         ],
-      audios: [
-          "https://res.cloudinary.com/obioflagos/image/upload/v1625511996/b3yac8p0yoffolzri6ks.jpg",
-          "https://res.cloudinary.com/obioflagos/image/upload/v1625511995/nhkwpw01aucoroxh5wow.jpg"
-        ],
-      videos: [
-          "https://res.cloudinary.com/obioflagos/image/upload/v1625511996/b3yac8p0yoffolzri6ks.jpg",
-          "https://res.cloudinary.com/obioflagos/image/upload/v1625511995/nhkwpw01aucoroxh5wow.jpg"
-        ],
+     
       post: "Bandits attacks",
       description: "Bandits attacks travellers in the east ",
       likes: 10,
@@ -24,18 +17,11 @@ module.exports = {
     },
     {
       id: "a430e505-937b-4908-9422-7aa57044e85a",
-      images: [
+      media: [
           "https://res.cloudinary.com/obioflagos/image/upload/v1625511995/c42vafrtwqqf5fqszjfi.jpg",
           "https://res.cloudinary.com/obioflagos/image/upload/v1625511996/yw583airzfvcer5eoq5e.jpg"
         ],
-      audios: [
-          "https://res.cloudinary.com/obioflagos/image/upload/v1625511996/b3yac8p0yoffolzri6ks.jpg",
-          "https://res.cloudinary.com/obioflagos/image/upload/v1625511995/nhkwpw01aucoroxh5wow.jpg"
-        ],
-      videos: [
-          "https://res.cloudinary.com/obioflagos/image/upload/v1625511996/b3yac8p0yoffolzri6ks.jpg",
-          "https://res.cloudinary.com/obioflagos/image/upload/v1625511995/nhkwpw01aucoroxh5wow.jpg"
-        ],
+     
       post: "Students assiociation drops demands",
       description: "Students assiociation demands more security within school premises",
       likes: 6,
@@ -45,18 +31,11 @@ module.exports = {
       },
       {
       id: "7cc6de97-2ed6-4422-9ce2-9ff22cc5e97a",
-      images: [
+      media: [
           "https://res.cloudinary.com/obioflagos/image/upload/v1625511995/c42vafrtwqqf5fqszjfi.jpg",
           "https://res.cloudinary.com/obioflagos/image/upload/v1625511996/yw583airzfvcer5eoq5e.jpg"
         ],
-      audios: [
-          "https://res.cloudinary.com/obioflagos/image/upload/v1625511996/b3yac8p0yoffolzri6ks.jpg",
-          "https://res.cloudinary.com/obioflagos/image/upload/v1625511995/nhkwpw01aucoroxh5wow.jpg"
-        ],
-      videos: [
-          "https://res.cloudinary.com/obioflagos/image/upload/v1625511996/b3yac8p0yoffolzri6ks.jpg",
-          "https://res.cloudinary.com/obioflagos/image/upload/v1625511995/nhkwpw01aucoroxh5wow.jpg"
-        ],
+     
       post: "Son resfuse to fast, after seeing Dominos pizza advert",
       description: "Son resfuse to fast, after seeing Dominos pizza advert",
       likes: 4,
@@ -66,18 +45,11 @@ module.exports = {
       },
       {
       id: "6cbaa746-6e42-453e-91f4-c0de15fb4b9f",
-      images: [
+      media: [
           "https://res.cloudinary.com/obioflagos/image/upload/v1625511995/c42vafrtwqqf5fqszjfi.jpg",
           "https://res.cloudinary.com/obioflagos/image/upload/v1625511996/yw583airzfvcer5eoq5e.jpg"
         ],
-      audios: [
-          "https://res.cloudinary.com/obioflagos/image/upload/v1625511996/b3yac8p0yoffolzri6ks.jpg",
-          "https://res.cloudinary.com/obioflagos/image/upload/v1625511995/nhkwpw01aucoroxh5wow.jpg"
-        ],
-      videos: [
-          "https://res.cloudinary.com/obioflagos/image/upload/v1625511996/b3yac8p0yoffolzri6ks.jpg",
-          "https://res.cloudinary.com/obioflagos/image/upload/v1625511995/nhkwpw01aucoroxh5wow.jpg"
-        ],
+     
       post: "Man runs away with church offerings",
       description: "Man runs away with church offerings",
       likes: 0,

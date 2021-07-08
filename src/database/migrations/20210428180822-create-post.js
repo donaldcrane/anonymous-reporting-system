@@ -17,13 +17,7 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      images: {
-        type: Sequelize.ARRAY(Sequelize.TEXT),
-      },
-      audios: {
-        type: Sequelize.ARRAY(Sequelize.TEXT),
-      },
-      videos: {
+      media: {
         type: Sequelize.ARRAY(Sequelize.TEXT),
       },
       likes: {
