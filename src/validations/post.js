@@ -11,14 +11,7 @@ const validation = post => {
       .messages({
         "any.required": "description is required.",
         "string.empty": "Sorry, description cannot be an empty field."
-      }),
-    media: Joi.string().empty()
-      .messages({
-        "any.required": "A media is required.",
-        "string.empty": "media field cannot be an empty field.",
-        "string.base": "Please provide a valid link."
-
-      }),
+      })
   }).messages({
     "object.unknown": "You have used an invalid key."
   }).options({ abortEarly: false });

@@ -19,7 +19,7 @@ export default class PostController {
   static async addPost(req, res) {
     try {
       const { post, description } = req.body;
-      const { error } = validation(req.body);
+      const { error } = validation({ post, description });
       if (error) {
         return res.status(400).json({ status: 400, error: error.message });
       }
