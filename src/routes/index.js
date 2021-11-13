@@ -5,8 +5,8 @@ import commentRoutes from "./commentRoutes";
 
 const router = new Router();
 
-router.use("/", userRoutes);
-router.use("/", postRoutes);
-router.use("/", commentRoutes);
+router.use("/users", userRoutes);
+router.use("/posts", postRoutes);
+router.use("/comments", commentRoutes);
 
 export default router;

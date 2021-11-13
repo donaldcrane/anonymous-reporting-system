@@ -1,5 +1,6 @@
 import { Router } from "express";
 import PostController from "../controllers/post";
+import VerifyController from "../controllers/verify";
 import Authentication from "../middlewares/authenticate";
 import parser from "../middlewares/uploads";
 
@@ -8,15 +9,17 @@ const { verifyToken } = Authentication;
 const {
   addPost, likedPost, getPostById, getPosts, deletePost, verifyPost, getNonVerifiedPosts
 } = PostController;
+const { verifyPostAi } = VerifyController;
 
-router.get("/posts", getPosts);
-router.get("/posts-nonverified", getNonVerifiedPosts);
-router.get("/post/:id", getPostById);
+router.get("/", getPosts);
+router.get("/nonverified", getNonVerifiedPosts);
+router.get("/:id", getPostById);
 
-router.post("/post", parser.array("media", 9), addPost);
+router.post("/", parser.array("media", 3), addPost);
 
 router.patch("/like-post/:id", likedPost);
-router.patch("/post/:id", verifyToken, verifyPost);
+router.patch("/:id", verifyToken, verifyPost);
+router.patch("/verify/:id", verifyToken, verifyPostAi);
 
 router.delete("/post/:id", verifyToken, deletePost);
 

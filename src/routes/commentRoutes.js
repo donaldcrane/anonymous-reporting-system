@@ -8,10 +8,10 @@ const {
   addComment, getCommentById, deleteComment,
 } = CommentController;
 
-router.get("/comment/:id", getCommentById);
+router.get("/:id", getCommentById);
 
-router.post("/comment/:id", addComment);
+router.post("/:id", addComment);
 
-router.delete("/comment/:id", verifyToken, deleteComment);
+router.delete("/:id", verifyToken, deleteComment);
 
 export default router;
