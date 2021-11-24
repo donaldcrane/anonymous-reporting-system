@@ -1,11 +1,8 @@
 import dotenv from "dotenv";
 import PostServices from "../services/post";
 
-const { Copyleaks } = require("plagiarism-checker");
-const {
-  CopyleaksURLSubmissionModel,
-  CopyleaksFileSubmissionModel
-} = require("copyleaks-sdk-nodejs");
+let Copyleaks;
+let CopyleaksURLSubmissionModel;
 
 const {
   addPost, getAllPosts, getPost, deletePost, updatePostVerification, likePost, getNonVerifiedPosts
@@ -14,7 +11,7 @@ dotenv.config();
 
 const EMAIL = process.env.copyleakEmail; // change this with your own copyleaks email.
 const KEY = process.env.copyApiKey;
-const copyleaks = new Copyleaks();
+// const copyleaks = new Copyleaks();
 
 /**
  * @class VerifyController
