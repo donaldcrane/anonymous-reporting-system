@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import admin from "firebase-admin";
 import functions from "firebase-functions";
-import serviceAccount from "../../crane.json";
+// import serviceAccount from "../../crane.json";
 
 import PostServices from "../services/post";
 
