@@ -159,6 +159,7 @@ export default class PostController {
    */
   static async verifyPost(req, res) {
     try {
+      console.log(req.headers);
       const { id } = req.params;
       const { error } = validateId({ id });
       if (error) return res.status(400).json({ status: 400, error: error.message });
