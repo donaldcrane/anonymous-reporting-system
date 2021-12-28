@@ -54,7 +54,7 @@ export default class PostController {
         data: Posts,
       });
     } catch (error) {
-      return res.status(500).json({ status: 500, error: error.message });
+      return res.status(500).json({ status: 500, error: "Server error." });
     }
   }
 

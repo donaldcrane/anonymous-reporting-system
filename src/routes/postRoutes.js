@@ -9,17 +9,18 @@ const { verifyToken } = Authentication;
 const {
   addPost, likedPost, getPostById, getPosts, deletePost, verifyPost, getNonVerifiedPosts
 } = PostController;
-const { verifyPostAi } = VerifyController;
+const { verifyPostAi, getFeedbacks } = VerifyController;
 
 router.get("/", getPosts);
 router.get("/nonverified", getNonVerifiedPosts);
+router.get("/feedbacks", verifyToken, getFeedbacks);
 router.get("/:id", getPostById);
 
 router.post("/", parser.array("media", 3), addPost);
 
 router.patch("/like-post/:id", likedPost);
 router.patch("/:id", verifyToken, verifyPost);
-router.patch("/verify/:id", verifyPostAi);
+router.post("/verify/:id", verifyPostAi);
 
 router.delete("/post/:id", verifyToken, deletePost);
 

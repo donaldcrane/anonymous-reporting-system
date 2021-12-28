@@ -1,29 +1,6 @@
-import dotenv from "dotenv";
-import cors from "cors";
-import admin from "firebase-admin";
-import functions from "firebase-functions";
-import { SessionClient } from "dialogflow";
-import { response } from "express";
-import serviceAccount from "../../crane.json";
+import PostServices from "../services/post";
 
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://fireship-lessons.firebaseio.com"
-});
-
-// exports.dialogflowGateway = functions.https.onRequest((req, res) => {
-//   cors(req, res, async () => {
-//     const { queryInput, sessionId } = req.body;
-//     const sessionClient = new SessionClient({ credentials: serviceAccount });
-//     const session = sessionClient.sessionPath("fireship-lessons", sessionId);
-
-//     const responses = await sessionClient.detectIntent({ session, queryInput });
-//     const result = responses[0].queryResult;
-
-//     response.send(result);
-//   });
-// });
-
+const { verifyPost, getAllFeedbacks } = PostServices;
 /**
  * @class VerifyController
  * @description verify
@@ -37,16 +14,37 @@ export default class VerifyController {
    */
   static async verifyPostAi(req, res) {
     try {
-      const { queryInput, sessionId } = req.body;
-      const sessionClient = new SessionClient({ credentials: serviceAccount });
-      const session = sessionClient.sessionPath("fireship-lessons", sessionId);
+      const { id } = req.params;
+      const { input, input1, input2 } = req.body;
+      const newPost = {
+        postId: id, input, input1, input2
+      };
+      await verifyPost(newPost);
 
-      const responses = await sessionClient.detectIntent({ session, queryInput });
-      const result = responses[0].queryResult;
-
-      res.send(result);
+      res.status(200).json({
+        status: 200,
+        message: "Posts is being verified."
+      });
     } catch (error) {
-      return res.status(404).json({ status: 404, error: "Resource not found.", });
+      return res.status(404).json({ status: 500, error: error.message, });
+    }
+  }
+
+  /**
+   * @param {object} req - The user request object
+   * @param {object} res - The user response object
+   * @returns {object} Success message
+   */
+  static async getFeedbacks(req, res) {
+    try {
+      const Posts = await getAllFeedbacks();
+      res.status(200).json({
+        status: 200,
+        message: "Successfully retrieved all Feedbacks.",
+        data: Posts,
+      });
+    } catch (error) {
+      return res.status(500).json({ status: 500, error: error.message });
     }
   }
 }
