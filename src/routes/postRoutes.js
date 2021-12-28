@@ -22,6 +22,6 @@ router.patch("/like-post/:id", likedPost);
 router.patch("/:id", verifyToken, verifyPost);
 router.post("/verify/:id", verifyPostAi);
 
-router.delete("/post/:id", verifyToken, deletePost);
+router.delete("/:id", verifyToken, deletePost);
 
 export default router;

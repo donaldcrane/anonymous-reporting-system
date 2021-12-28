@@ -36,7 +36,6 @@ export default class PostServices {
   static async getAllPosts() {
     try {
       return await database.Posts.findAll({
-        where: { verified: true },
         include: [
           { model: database.Comments, as: "comments" },
         ]
