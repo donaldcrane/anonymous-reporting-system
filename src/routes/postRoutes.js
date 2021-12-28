@@ -19,7 +19,7 @@ router.post("/", parser.array("media", 3), addPost);
 
 router.patch("/like-post/:id", likedPost);
 router.patch("/:id", verifyToken, verifyPost);
-router.patch("/verify/:id", verifyToken, verifyPostAi);
+router.patch("/verify/:id", verifyPostAi);
 
 router.delete("/post/:id", verifyToken, deletePost);
 

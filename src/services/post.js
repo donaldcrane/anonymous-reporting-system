@@ -25,6 +25,9 @@ export default class PostServices {
     try {
       return await database.Posts.findAll({
         where: { verified: true },
+        include: [
+          { model: database.Comments, as: "comments" },
+        ]
       });
     } catch (err) {
       throw err;
@@ -38,6 +41,9 @@ export default class PostServices {
     try {
       return await database.Posts.findAll({
         where: { verified: false },
+        include: [
+          { model: database.Comments, as: "comments" },
+        ]
       });
     } catch (err) {
       throw err;
@@ -53,7 +59,10 @@ export default class PostServices {
       return await database.Posts.findOne({
         where: {
           id
-        }
+        },
+        include: [
+          { model: database.Comments, as: "comments" },
+        ]
       });
     } catch (err) {
       throw err;
