@@ -13,7 +13,7 @@ export default class jwtHelper {
    * @returns {string} The JWT signed token
    */
   static async generateToken(payload, secret = secretKey) {
-    const token = await jwt.sign(payload, secret, { expiresIn: "1d" });
+    const token = await jwt.sign(payload, secret, { expiresIn: "20d" });
     return token;
   }
 }

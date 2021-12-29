@@ -1,5 +1,11 @@
 import PostServices from "../services/post";
 
+// const { Copyleaks } = require("plagiarism-checker");
+let Copyleaks;
+
+let CopyleaksURLSubmissionModel;
+
+const copyleaks = Copyleaks;
 const { verifyPost, getAllFeedbacks } = PostServices;
 /**
  * @class VerifyController
@@ -16,11 +22,28 @@ export default class VerifyController {
     try {
       const { id } = req.params;
       const { input, input1, input2 } = req.body;
+      let valid;
+      if (!input || !input1 || !input2) {
+        valid = false;
+      } else {
+        valid = true;
+      }
       const newPost = {
-        postId: id, input, input1, input2
+        postId: id, input, input1, input2, valid
       };
-      await verifyPost(newPost);
+      let Post;
+      let submission = (
+        Post,
+        {
+          sandbox: true,
+          webhooks: { status: "/submit-url-webhook/{STATUS}" }
+        }
+      );
+      let loginResult;
+      // await copyleaks("education", loginResult, Date.now() + 1, submission);
+      // copyleaks.submitFileAsync("businesses", loginResult, Date.now() + 2, submission);
 
+      await verifyPost(newPost);
       res.status(200).json({
         status: 200,
         message: "Posts is being verified."

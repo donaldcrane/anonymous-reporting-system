@@ -24,6 +24,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    valid: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    },
   });
   
   return Feedback;
