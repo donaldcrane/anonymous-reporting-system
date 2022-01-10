@@ -2,7 +2,7 @@ import PostServices from "../services/post";
 import { validation, validateId } from "../validations/post";
 
 const {
-  addPost, getAllPosts, getPost, deletePost, updatePostVerification, likePost, getNonVerifiedPosts
+  addPost, getAllPosts, getPost, deletePost, updatePostVerification, likePost, getNonVerifiedPosts, highestLikes, getVerifiedPosts
 } = PostServices;
 
 /**
@@ -81,7 +81,48 @@ export default class PostController {
         error: "Resource not found."
       });
     }
-  }/**
+  }
+
+  /**
+   * @param {object} req - The user request object
+   * @param {object} res - The user response object
+   * @returns {object} Success message
+   */
+
+  static async getMostLikesPosts(req, res) {
+    try {
+      const Posts = await highestLikes();
+      res.status(200).json({
+        status: 200,
+        message: "Successfully retrieved most liked Post.",
+        mostLikedPost: Posts[0],
+        minLikedPost: Posts[Posts.length - 1],
+      });
+    } catch (error) {
+      return res.status(500).json({ status: 500, error: "Server error." });
+    }
+  }
+
+  /**
+   * @param {object} req - The user request object
+   * @param {object} res - The user response object
+   * @returns {object} Success message
+   */
+
+  static async getVerifiedPosts(req, res) {
+    try {
+      const Posts = await getVerifiedPosts();
+      res.status(200).json({
+        status: 200,
+        message: "Successfully retrieved all Verified Posts.",
+        data: Posts,
+      });
+    } catch (error) {
+      return res.status(500).json({ status: 500, error: "Server error." });
+    }
+  }
+
+  /**
    * @param {object} req - The user request object
    * @param {object} res - The user response object
    * @returns {object} Success message

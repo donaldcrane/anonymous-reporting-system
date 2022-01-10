@@ -7,13 +7,15 @@ import parser from "../middlewares/uploads";
 const router = Router();
 const { verifyToken } = Authentication;
 const {
-  addPost, likedPost, getPostById, getPosts, deletePost, verifyPost, getNonVerifiedPosts
+  addPost, likedPost, getPostById, getPosts, deletePost, verifyPost, getNonVerifiedPosts, getMostLikesPosts, getVerifiedPosts
 } = PostController;
-const { verifyPostAi, getFeedbacks } = VerifyController;
+const { verifyPostAi, getFeedbacks, webhook } = VerifyController;
 
 router.get("/", getPosts);
 router.get("/nonverified", getNonVerifiedPosts);
 router.get("/feedbacks", verifyToken, getFeedbacks);
+router.get("/likes", getMostLikesPosts);
+router.get("/verified", getVerifiedPosts);
 router.get("/:id", getPostById);
 
 router.post("/", parser.array("media", 3), addPost);
@@ -21,6 +23,7 @@ router.post("/", parser.array("media", 3), addPost);
 router.patch("/like-post/:id", likedPost);
 router.patch("/:id", verifyToken, verifyPost);
 router.post("/verify/:id", verifyPostAi);
+router.post("/webhook", webhook);
 
 router.delete("/:id", verifyToken, deletePost);
 

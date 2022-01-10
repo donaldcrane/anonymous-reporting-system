@@ -8,25 +8,29 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       unique: true,
       },
-    postId: {
-      type: DataTypes.UUID,
-      defaultValue: UUIDV4,
+    type: {
+      type: DataTypes.STRING,
+      allowNull: false,
     },
     input: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     input1: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
       },
     input2: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
-    valid: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false,
+    input3: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    input3: {
+      type: DataTypes.STRING,
+      allowNull: true,
     },
   });
   

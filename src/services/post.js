@@ -1,3 +1,4 @@
+import sequelize from "sequelize";
 import database from "../models";
 
 /**
@@ -13,6 +14,21 @@ export default class PostServices {
   static async addPost(newPost) {
     try {
       return await database.Posts.create(newPost);
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  /**
+   * @returns {object} An instance of the Posts model class
+   */
+  static async highestLikes() {
+    try {
+      return await database.Posts.findAll({
+        order: [
+          ["likes", "DESC"],
+        ]
+      });
     } catch (err) {
       throw err;
     }
@@ -63,6 +79,22 @@ export default class PostServices {
     try {
       return await database.Posts.findAll({
         where: { verified: false },
+        include: [
+          { model: database.Comments, as: "comments" },
+        ]
+      });
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  /**
+   * @returns {object} An instance of the Posts model class
+   */
+  static async getVerifiedPosts() {
+    try {
+      return await database.Posts.findAll({
+        where: { verified: true },
         include: [
           { model: database.Comments, as: "comments" },
         ]

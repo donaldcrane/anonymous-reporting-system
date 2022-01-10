@@ -5,7 +5,7 @@ import Authentication from "../middlewares/authenticate";
 const router = Router();
 const { verifyToken } = Authentication;
 const {
-  addComment, getCommentById, deleteComment,
+  addComment, getCommentById, deleteComment
 } = CommentController;
 
 router.get("/:id", getCommentById);

@@ -2,7 +2,7 @@ import CommentServices from "../services/comment";
 import { validateComment, validateId } from "../validations/comment";
 
 const {
-  addComment, getComment, deleteComment
+  addComment, getComment, deleteComment, getHighestCommentPost
 } = CommentServices;
 
 /**
