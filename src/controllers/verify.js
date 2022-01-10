@@ -81,7 +81,8 @@ export default class VerifyController {
         let { answer2 } = agent.context.get("awaiting_type").parameters;
         let { answer3 } = agent.context.get("awaiting_type").parameters;
         let { answer4 } = agent.context.get("awaiting_type").parameters;
-
+        let data = agent.context.get("awaiting_type").parameters;
+        console.log(data);
         newPost = {
           type: answer, input: answer1, input1: answer1, input2: answer2, input3: answer3, input4: answer4
         };
@@ -91,6 +92,8 @@ export default class VerifyController {
         let answer = agent.context.get("awaiting_type").parameters.awaiting_type;
         let { robbery1 } = agent.context.get("awaiting_type").parameters;
         let { robbery2 } = agent.context.get("awaiting_type").parameters;
+        let data = agent.context.get("awaiting_type").parameters;
+        console.log(data);
         newPost = {
           type: answer, input: robbery1, input1: robbery2,
         };

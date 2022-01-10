@@ -11,7 +11,6 @@ module.exports = {
         },
       type: {
         type: Sequelize.STRING,
-        allowNull: false,
       },
       input: {
         type: Sequelize.STRING,
