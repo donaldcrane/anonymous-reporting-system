@@ -99,8 +99,8 @@ export default class VerifyController {
       await verifyPost(newPost);
       let intentMap = new Map();
 
-      intentMap.set("rapeConfirmation", finalConfirmation);
-      intentMap.set("robberyConfirmation", rapeConfirmation);
+      intentMap.set("rapeConfirmation", rapeConfirmation);
+      intentMap.set("robberyConfirmation", robberyConfirmation);
       // intentMap.set("rape", rape);
       // intentMap.set("robbery", robbery);
 
