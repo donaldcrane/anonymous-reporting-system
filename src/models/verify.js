@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: true,
     },
-    input3: {
+    input4: {
       type: DataTypes.STRING,
       allowNull: true,
     },

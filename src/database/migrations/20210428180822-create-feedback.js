@@ -9,26 +9,29 @@ module.exports = {
         type: Sequelize.UUID,
         defaultValue: UUIDV4,
         },
-      postId: {
+      type: {
+        type: Sequelize.STRING,
         allowNull: false,
-        type: Sequelize.UUID,
-        defaultValue: UUIDV4,
       },
       input: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       input1: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       input2: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
       },
-      valid: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: false,
+      input3: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      input4: {
+        type: Sequelize.STRING,
+        allowNull: true,
       },
       createdAt: {
         allowNull: false,
