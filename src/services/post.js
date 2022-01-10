@@ -38,7 +38,7 @@ export default class PostServices {
    * @param {string} newPost - The post details
    * @returns {object} An instance of the Posts model class
    */
-  static async verifyPost(newPost) {
+  static async createFeedback(newPost) {
     try {
       return await database.Feedbacks.create(newPost);
     } catch (err) {
