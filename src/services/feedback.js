@@ -67,4 +67,23 @@ export default class FeedbackServices {
       throw err;
     }
   }
+
+  /**
+   * @param {string} type - The feedback type
+   * @returns {object} An instance of the Posts model class
+   */
+  static async getFeedbackByType(type) {
+    try {
+      return await database.Feedbacks.findAll({
+        where: {
+          threatType: type
+        },
+        include: [
+          { model: database.Posts, as: "posts" },
+        ]
+      });
+    } catch (err) {
+      throw err;
+    }
+  }
 }

@@ -1,9 +1,9 @@
 import CommentServices from "../services/comment";
 import { validateComment, validateId } from "../validations/comment";
+import PostServices from "../services/post";
 
-const {
-  addComment, getComment, deleteComment, getHighestCommentPost
-} = CommentServices;
+const { addComment, getComment, deleteComment } = CommentServices;
+const { addCommentCount } = PostServices;
 
 /**
  * @class CommentController
@@ -26,6 +26,7 @@ export default class CommentController {
       }
       const newComment = { comment, postId: id };
       const createdComment = await addComment(newComment);
+      await addCommentCount(id);
       return res.status(201).json({ status: 201, message: "A Comment has been added.", data: createdComment, });
     } catch (error) {
       return res.status(500).json({ status: 500, error: "Server error." });

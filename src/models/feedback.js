@@ -38,6 +38,10 @@ module.exports = (sequelize, DataTypes) => {
       as: "questions",
       foreignKey: "questionId",
     });
+  Feedback.belongsTo(models.Posts, {
+      as: "posts",
+      foreignKey: "postId",
+    });
   };
   return Feedback;
 };

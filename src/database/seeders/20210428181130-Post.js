@@ -7,10 +7,11 @@ module.exports = {
           "https://res.cloudinary.com/obioflagos/image/upload/v1625511995/c42vafrtwqqf5fqszjfi.jpg",
           "https://res.cloudinary.com/obioflagos/image/upload/v1625511996/yw583airzfvcer5eoq5e.jpg"
         ],
-     
       post: "Bandits attacks",
       description: "Bandits attacks travellers in the east ",
+      location: "Badagry",
       likes: 10,
+      commentCount: 10,
       verified: true,
       createdAt: new Date(),
       updatedAt: new Date(),
@@ -21,10 +22,11 @@ module.exports = {
           "https://res.cloudinary.com/obioflagos/image/upload/v1625511995/c42vafrtwqqf5fqszjfi.jpg",
           "https://res.cloudinary.com/obioflagos/image/upload/v1625511996/yw583airzfvcer5eoq5e.jpg"
         ],
-     
       post: "Students assiociation drops demands",
       description: "Students assiociation demands more security within school premises",
+      location: "Yaba",
       likes: 6,
+      commentCount: 6,
       verified: true,
       createdAt: new Date(),
       updatedAt: new Date(),
@@ -38,7 +40,9 @@ module.exports = {
      
       post: "Son resfuse to fast, after seeing Dominos pizza advert",
       description: "Son resfuse to fast, after seeing Dominos pizza advert",
-      likes: 4,
+      location: "Yaba",
+      likes: 6,
+      commentCount: 6,
       verified: true,
       createdAt: new Date(),
       updatedAt: new Date(),
@@ -52,7 +56,9 @@ module.exports = {
      
       post: "Man runs away with church offerings",
       description: "Man runs away with church offerings",
-      likes: 0,
+      location: "Agege",
+      likes: 6,
+      commentCount: 6,
       verified: true,
       createdAt: new Date(),
       updatedAt: new Date(),

@@ -7,7 +7,9 @@ import parser from "../middlewares/uploads";
 const router = Router();
 const { verifyToken } = Authentication;
 const {
-  addPost, likedPost, getPostById, getPosts, deletePost, verifyPost, getNonVerifiedPosts, getMostLikesPosts, getVerifiedPosts
+  addPost, likedPost, getPostById, getPosts, deletePost,
+  verifyPost, getNonVerifiedPosts, getMostLikesPosts,
+  getVerifiedPosts, getHighestThreatsLocations, getMostCommentedPost
 } = PostController;
 const {
   verifyPostAi, getFeedbacks, getUserInteractions,
@@ -17,11 +19,13 @@ const {
 router.get("/", getPosts);
 router.get("/nonverified", getNonVerifiedPosts);
 router.get("/verified", getVerifiedPosts);
+router.get("/threat-locations", getHighestThreatsLocations);
 router.get("/feedbacks", verifyToken, getFeedbacks);
 router.get("/feedbacks/:feedbackId", verifyToken, getFeedbackById);
 router.get("/interactions", verifyToken, getUserInteractions);
 router.get("/questions/:feedbackId", getQuestions);
 router.get("/likes", getMostLikesPosts);
+router.get("/comments", getMostCommentedPost);
 router.get("/:id", getPostById);
 
 router.post("/", parser.array("media", 3), addPost);

@@ -21,7 +21,9 @@ app.use("/api/v1", router);
 app.get("/", (req, res) => {
   res.send("Welcome to Annoymous reporting system.");
 });
-
+app.all("*", (req, res) => res
+  .status(404)
+  .json({ message: "This is not the route you are looking for Comrade", data: null }));
 const port = process.env.PORT || 5000;
 
 app.listen(port, () => {

@@ -1,10 +1,13 @@
 import PostServices from "../services/post";
+import FeedbackServices from "../services/feedback";
 import { validation, validateId } from "../validations/post";
 
 const {
-  addPost, getAllPosts, getPost, deletePost, updatePostVerification, likePost, getNonVerifiedPosts, highestLikes, getVerifiedPosts
+  addPost, getAllPosts, getPost, deletePost, updatePostVerification,
+  likePost, getNonVerifiedPosts, highestLikes, getVerifiedPosts,
+  highestComment
 } = PostServices;
-
+const { getFeedbackByType } = FeedbackServices;
 /**
  * @class PostController
  * @description create Post, get all Posts, get a Post, delete a Post, update a Post
@@ -97,6 +100,20 @@ export default class PostController {
         message: "Successfully retrieved most liked Post.",
         mostLikedPost: Posts[0],
         minLikedPost: Posts[Posts.length - 1],
+      });
+    } catch (error) {
+      return res.status(500).json({ status: 500, error: "Server error." });
+    }
+  }
+
+  static async getMostCommentedPost(req, res) {
+    try {
+      const Posts = await highestComment();
+      res.status(200).json({
+        status: 200,
+        message: "Successfully retrieved most liked Post.",
+        mostCommentedPost: Posts[0],
+        minCommentedPost: Posts[Posts.length - 1],
       });
     } catch (error) {
       return res.status(500).json({ status: 500, error: "Server error." });
@@ -213,6 +230,31 @@ export default class PostController {
       });
     } catch (error) {
       return res.status(500).json({ status: 500, error: "Resource not found.", });
+    }
+  }
+
+  /**
+   * @param {object} req - The user request object
+   * @param {object} res - The user response object
+   * @returns {object} Success message
+   */
+  static async getHighestThreatsLocations(req, res) {
+    try {
+      const { type } = req.query;
+      const feedbacks = await getFeedbackByType(type);
+      let locations = [];
+      locations = feedbacks.map(feedback => feedback.posts.location);
+      let location = {};
+      locations.forEach(x => {
+        location[x] = (location[x] || 0) + 1;
+      });
+      return res.status(200).json({
+        status: 200,
+        message: "Successfully retrieved  Highest Threats Locations",
+        data: location,
+      });
+    } catch (error) {
+      return res.status(500).json({ status: 500, error: error.message, });
     }
   }
 }

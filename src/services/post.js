@@ -37,6 +37,21 @@ export default class PostServices {
   /**
    * @returns {object} An instance of the Posts model class
    */
+  static async highestComment() {
+    try {
+      return await database.Posts.findAll({
+        order: [
+          ["commentCount", "DESC"],
+        ]
+      });
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  /**
+   * @returns {object} An instance of the Posts model class
+   */
   static async getAllPosts() {
     try {
       return await database.Posts.findAll({
@@ -141,6 +156,26 @@ export default class PostServices {
     try {
       return await database.Posts.increment({
         likes: +1
+      }, {
+        where: {
+          id
+        },
+        returning: true,
+        plain: true
+      });
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  /**
+   * @param {string} id - The post id
+   * @returns {object} An instance of the Posts model class
+   */
+  static async addCommentCount(id) {
+    try {
+      return await database.Posts.increment({
+        commentCount: +1
       }, {
         where: {
           id

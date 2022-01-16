@@ -79,19 +79,13 @@ export default class VerifyController {
       const post = await await getPost(postId);
       const { description } = post;
       switch (description) {
-        case description.includes("rape"):
+        case description.includes("rape" || "rapping" || "sex"):
           type = "rape";
           break;
-        case description.includes("robbery"):
+        case description.includes("robbery" || "stealing" || "theft" || "heist" || "rob" || " robbing"):
           type = "robbery";
           break;
-        case description.includes("corruption"):
-          type = "corruption";
-          break;
-        case description.includes("theft"):
-          type = "robbery";
-          break;
-        case description.includes("fraud"):
+        case description.includes("corruption" || "fraud" || "embezzlement"):
           type = "corruption";
           break;
         default:
@@ -107,7 +101,7 @@ export default class VerifyController {
       const feedback = await createFeedback(newPost);
       res.status(200).json({
         status: 200,
-        message: "Posts is being verified.",
+        message: "Successfully creted Feedback.",
         feedback
       });
     } catch (error) {

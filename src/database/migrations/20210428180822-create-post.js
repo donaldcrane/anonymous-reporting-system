@@ -17,10 +17,17 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      location: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
       media: {
         type: Sequelize.ARRAY(Sequelize.TEXT),
       },
       likes: {
+        type: Sequelize.INTEGER
+      },
+      commentCount: {
         type: Sequelize.INTEGER
       },
       verified: {
