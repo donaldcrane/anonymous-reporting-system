@@ -1,7 +1,7 @@
-/* eslint-disable no-inner-declarations */
-/* eslint-disable no-shadow */
-import diff from "dialogflow-fulfillment";
+import database from "../models";
 import PostServices from "../services/post";
+import FeedbackServices from "../services/feedback";
+import { validation, validateId } from "../validations/post";
 
 // const { Copyleaks } = require("plagiarism-checker");
 let Copyleaks;
@@ -9,7 +9,11 @@ let Copyleaks;
 // let CopyleaksURLSubmissionModel;
 
 // const copyleaks = Copyleaks;
-const { createFeedback, getAllFeedbacks } = PostServices;
+const { getPost } = PostServices;
+
+const {
+  createFeedback, getAllFeedbacks, getFeedback, getQuestion
+} = FeedbackServices;
 /**
  * @class VerifyController
  * @description verify
@@ -52,11 +56,11 @@ export default class VerifyController {
    */
   static async getFeedbacks(req, res) {
     try {
-      const Posts = await getAllFeedbacks();
+      const feedbacks = await getAllFeedbacks();
       res.status(200).json({
         status: 200,
         message: "Successfully retrieved all Feedbacks.",
-        data: Posts,
+        data: feedbacks,
       });
     } catch (error) {
       return res.status(500).json({ status: 500, error: error.message });
@@ -68,46 +72,190 @@ export default class VerifyController {
    * @param {object} res - The user response object
    * @returns {object} Success message
    */
-  static async webhook(req, res) {
+  static async createFeedback(req, res) {
     try {
-      const agent = new diff.WebhookClient({
-        request: req,
-        response: res
+      const { postId } = req.params;
+      let type = "";
+      const post = await await getPost(postId);
+      const { description } = post;
+      switch (description) {
+        case description.includes("rape"):
+          type = "rape";
+          break;
+        case description.includes("robbery"):
+          type = "robbery";
+          break;
+        case description.includes("corruption"):
+          type = "corruption";
+          break;
+        case description.includes("theft"):
+          type = "robbery";
+          break;
+        case description.includes("fraud"):
+          type = "corruption";
+          break;
+        default:
+          type = "others";
+          break;
+      }
+      const question = await getQuestion(type);
+      const { id } = question;
+      const newPost = {
+        postId, threatType: type, questionId: id
+      };
+
+      const feedback = await createFeedback(newPost);
+      res.status(200).json({
+        status: 200,
+        message: "Posts is being verified.",
+        feedback
       });
-      let newPost = {};
-      function rapeConfirmation(agent) {
-        let answer = agent.context.get("awaiting_type").parameters.awaiting_type;
-        let { answer1 } = agent.context.get("awaiting_type").parameters;
-        let { answer2 } = agent.context.get("awaiting_type").parameters;
-        let { answer3 } = agent.context.get("awaiting_type").parameters;
-        let { answer4 } = agent.context.get("awaiting_type").parameters;
-        newPost = {
-          type: answer, input: answer1, input1: answer1, input2: answer2, input3: answer3, input4: answer4
-        };
-      }
-
-      function robberyConfirmation(agent) {
-        let answer = agent.context.get("awaiting_type").parameters.awaiting_type;
-        let { robbery1 } = agent.context.get("awaiting_type").parameters;
-        let { robbery2 } = agent.context.get("awaiting_type").parameters;
-        newPost = {
-          type: answer, input: robbery1, input1: robbery2,
-        };
-      }
-
-      let intentMap = new Map();
-
-      intentMap.set("rapeConfirmation", rapeConfirmation);
-      intentMap.set("robberyConfirmation", robberyConfirmation);
-      // intentMap.set("rape", rape);
-      // intentMap.set("robbery", robbery);
-
-      agent.handleRequest(intentMap);
-      agent.add("Thank you!");
-      await createFeedback(newPost);
     } catch (error) {
-      console.log(error);
       return res.status(500).json({ status: 500, error: error.message });
+    }
+  }
+
+  /**
+   * @param {object} req - The user request object
+   * @param {object} res - The user response object
+   * @returns {object} Success message
+   */
+  static async getQuestions(req, res) {
+    try {
+      const { feedbackId } = req.params;
+      const { number } = req.query;
+      const { error } = validateId({ id: feedbackId });
+      if (error) return res.status(400).json({ status: 400, error: error.message });
+      const feedback = await getFeedback(feedbackId);
+      if (!feedback) return res.status(404).json({ status: 404, error: "feedback not found." });
+      const { threatType } = feedback;
+      const question = await getQuestion(threatType);
+      let result = "";
+      switch (number) {
+        case "1":
+          result = question.question1;
+          break;
+        case "2":
+          result = question.question3;
+          break;
+        case "3":
+          result = question.question3;
+          break;
+        case "4":
+          result = question.question4;
+          break;
+        default:
+          result = "only 4 questions are asked";
+          break;
+      }
+      return res.status(200).json({
+        status: 200,
+        message: "Successfully retrieved questions",
+        data: result,
+      });
+    } catch (error) {
+      return res.status(500).json({ status: 500, error: error.message, });
+    }
+  }
+
+  /**
+   * @param {object} req - The user request object
+   * @param {object} res - The user response object
+   * @returns {object} Success message
+   */
+  static async saveAnswer(req, res) {
+    try {
+      const { feedbackId } = req.params;
+      const { answer } = req.body;
+      const { number } = req.query;
+      const { error } = validateId({ id: feedbackId });
+      if (error) return res.status(400).json({ status: 400, error: error.message });
+      const feedback = await getFeedback(feedbackId);
+      if (!feedback) return res.status(404).json({ status: 404, error: "feedback not found." });
+      let result = "";
+      switch (number) {
+        case "1":
+          result = await database.Feedbacks.update({ answer1: answer },
+            { where: { id: feedbackId }, returning: true, plain: true });
+          break;
+        case "2":
+          result = await database.Feedbacks.update({ answer2: answer },
+            { where: { id: feedbackId }, returning: true, plain: true });
+          break;
+        case "3":
+          result = await database.Feedbacks.update({ answer3: answer },
+            { where: { id: feedbackId }, returning: true, plain: true });
+          break;
+        case "4":
+          result = await database.Feedbacks.update({ answer4: answer },
+            { where: { id: feedbackId }, returning: true, plain: true });
+          break;
+        default:
+          result = "only 4 answers are allowed";
+          break;
+      }
+      return res.status(200).json({
+        status: 200,
+        message: "Successfully saved answers",
+        data: result,
+      });
+    } catch (error) {
+      return res.status(500).json({ status: 500, error: error.message, });
+    }
+  }
+
+  /**
+   * @param {object} req - The user request object
+   * @param {object} res - The user response object
+   * @returns {object} Success message
+   */
+  static async getUserInteractions(req, res) {
+    try {
+      const rape = await database.Feedbacks.count(
+        { where: { threatType: "rape" }, }
+      );
+      const robbery = await database.Feedbacks.count(
+        { where: { threatType: "robbery" }, }
+      );
+      const corruption = await database.Feedbacks.count(
+        { where: { threatType: "corruption" }, }
+      );
+      return res.status(200).json({
+        status: 200,
+        message: "Successfully retrieved interactions.",
+        data: {
+          rape,
+          robbery,
+          corruption
+        }
+      });
+    } catch (error) {
+      return res.status(500).json({ status: 500, error: error.message, });
+    }
+  }
+
+  /**
+   * @param {object} req - The user request object
+   * @param {object} res - The user response object
+   * @returns {object} Success message
+   */
+  static async getFeedbackById(req, res) {
+    try {
+      const { feedbackId } = req.params;
+      const { error } = validateId({ id: feedbackId });
+      if (error) return res.status(400).json({ status: 400, error: error.message });
+      const feedback = await getFeedback(feedbackId);
+      if (!feedback) return res.status(404).json({ status: 404, error: "Feedback not found" });
+      return res.status(200).json({
+        status: 200,
+        message: "Successfully retrieved Feedback.",
+        data: feedback,
+      });
+    } catch (error) {
+      return res.status(404).json({
+        status: 404,
+        error: "Resource not found."
+      });
     }
   }
 }

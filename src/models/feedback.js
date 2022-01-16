@@ -7,31 +7,37 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: UUIDV4,
       primaryKey: true,
       unique: true,
+    },
+    postId: {
+      type: DataTypes.UUID,
+      allowNull: false,
+    },
+    threatType: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    questionId: {
+      type: DataTypes.UUID,
+      allowNull: false,
+    },
+    answer1: {
+      type: DataTypes.STRING,
       },
-    type: {
+    answer2: {
       type: DataTypes.STRING,
     },
-    input: {
+    answer3: {
       type: DataTypes.STRING,
-      allowNull: true,
     },
-    input1: {
+    answer4: {
       type: DataTypes.STRING,
-      allowNull: true,
-      },
-    input2: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
-    input3: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
-    input4: {
-      type: DataTypes.STRING,
-      allowNull: true,
     },
   });
-  
+  Feedback.associate = models => {
+  Feedback.belongsTo(models.Questions, {
+      as: "questions",
+      foreignKey: "questionId",
+    });
+  };
   return Feedback;
 };

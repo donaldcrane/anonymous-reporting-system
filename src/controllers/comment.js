@@ -50,8 +50,8 @@ export default class CommentController {
         data: Comment,
       });
     } catch (error) {
-      return res.status(404).json({
-        status: 404,
+      return res.status(500).json({
+        status: 500,
         error: "Resource not found."
       });
     }
@@ -75,8 +75,8 @@ export default class CommentController {
         message: "Successfully Deleted Comment.",
       });
     } catch (error) {
-      return res.status(404).json({
-        status: 404,
+      return res.status(500).json({
+        status: 500,
         error: "Resource not found.",
       });
     }

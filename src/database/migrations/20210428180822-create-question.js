@@ -2,39 +2,32 @@ const { UUIDV4 } = require("sequelize");
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('Feedbacks', {
+    await queryInterface.createTable('Questions', {
       id: {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.UUID,
         defaultValue: UUIDV4,
-      },
-      postId: {
-        type: Sequelize.UUID,
-        allowNull: false,
-      },
-      questionId: {
-        type: Sequelize.UUID,
-        allowNull: false,
-      },  
+        },
       threatType: {
         type: Sequelize.STRING,
+        allowNull: false,
       },
-      answer1: {
+      question1: {
         type: Sequelize.STRING,
-        allowNull: true,
+        allowNull: false,
       },
-      answer2: {
+      question2: {
         type: Sequelize.STRING,
-        allowNull: true,
+        allowNull: false,
       },
-      answer3: {
+      question3: {
         type: Sequelize.STRING,
-        allowNull: true,
+        allowNull: false,
       },
-      answer4: {
+      question4: {
         type: Sequelize.STRING,
-        allowNull: true,
+        allowNull: false,
       },
       createdAt: {
         allowNull: false,
@@ -47,6 +40,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('Feedbacks');
+    await queryInterface.dropTable('Questions');
   }
 };

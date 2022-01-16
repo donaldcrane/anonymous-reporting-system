@@ -9,21 +9,28 @@ const { verifyToken } = Authentication;
 const {
   addPost, likedPost, getPostById, getPosts, deletePost, verifyPost, getNonVerifiedPosts, getMostLikesPosts, getVerifiedPosts
 } = PostController;
-const { verifyPostAi, getFeedbacks, webhook } = VerifyController;
+const {
+  verifyPostAi, getFeedbacks, getUserInteractions,
+  saveAnswer, getQuestions, createFeedback, getFeedbackById
+} = VerifyController;
 
 router.get("/", getPosts);
 router.get("/nonverified", getNonVerifiedPosts);
-router.get("/feedbacks", verifyToken, getFeedbacks);
-router.get("/likes", getMostLikesPosts);
 router.get("/verified", getVerifiedPosts);
+router.get("/feedbacks", verifyToken, getFeedbacks);
+router.get("/feedbacks/:feedbackId", verifyToken, getFeedbackById);
+router.get("/interactions", verifyToken, getUserInteractions);
+router.get("/questions/:feedbackId", getQuestions);
+router.get("/likes", getMostLikesPosts);
 router.get("/:id", getPostById);
 
 router.post("/", parser.array("media", 3), addPost);
+router.post("/feedbacks/:postId", createFeedback);
 
 router.patch("/like-post/:id", likedPost);
 router.patch("/:id", verifyToken, verifyPost);
 router.post("/verify/:id", verifyPostAi);
-router.post("/webhook", webhook);
+router.patch("/answers/:feedbackId", saveAnswer);
 
 router.delete("/:id", verifyToken, deletePost);
 

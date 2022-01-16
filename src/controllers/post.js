@@ -159,8 +159,8 @@ export default class PostController {
         message: "Successfully Deleted Post.",
       });
     } catch (error) {
-      return res.status(404).json({
-        status: 404,
+      return res.status(500).json({
+        status: 500,
         error: "Resource not found.",
       });
     }
@@ -186,8 +186,8 @@ export default class PostController {
         data: liked_Post
       });
     } catch (error) {
-      return res.status(404).json({
-        status: 404,
+      return res.status(500).json({
+        status: 500,
         error: "Server error.",
       });
     }
@@ -212,7 +212,7 @@ export default class PostController {
         data: newPost[1],
       });
     } catch (error) {
-      return res.status(404).json({ status: 404, error: "Resource not found.", });
+      return res.status(500).json({ status: 500, error: "Resource not found.", });
     }
   }
 }

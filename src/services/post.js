@@ -35,18 +35,6 @@ export default class PostServices {
   }
 
   /**
-   * @param {string} newPost - The post details
-   * @returns {object} An instance of the Posts model class
-   */
-  static async createFeedback(newPost) {
-    try {
-      return await database.Feedbacks.create(newPost);
-    } catch (err) {
-      throw err;
-    }
-  }
-
-  /**
    * @returns {object} An instance of the Posts model class
    */
   static async getAllPosts() {
@@ -56,17 +44,6 @@ export default class PostServices {
           { model: database.Comments, as: "comments" },
         ]
       });
-    } catch (err) {
-      throw err;
-    }
-  }
-
-  /**
-   * @returns {object} An instance of the Posts model class
-   */
-  static async getAllFeedbacks() {
-    try {
-      return await database.Feedbacks.findAll({ });
     } catch (err) {
       throw err;
     }
