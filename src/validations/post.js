@@ -11,6 +11,11 @@ const validation = post => {
       .messages({
         "any.required": "description is required.",
         "string.empty": "Sorry, description cannot be an empty field."
+      }),
+    location: Joi.string().empty().required()
+      .messages({
+        "any.required": "location is required.",
+        "string.empty": "Sorry, location cannot be an empty field."
       })
   }).messages({
     "object.unknown": "You have used an invalid key."

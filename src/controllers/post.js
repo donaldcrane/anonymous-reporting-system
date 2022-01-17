@@ -21,8 +21,8 @@ export default class PostController {
    */
   static async addPost(req, res) {
     try {
-      const { post, description } = req.body;
-      const { error } = validation({ post, description });
+      const { post, description, location } = req.body;
+      const { error } = validation({ post, description, location });
       if (error) {
         return res.status(400).json({ status: 400, error: error.message });
       }
@@ -34,7 +34,7 @@ export default class PostController {
       }
 
       const newPost = {
-        post, description, media
+        post, description, media, location
       };
       const createdPost = await addPost(newPost);
       return res.status(201).json({ status: 201, message: "A Post has been added.", data: createdPost, });
