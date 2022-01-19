@@ -10,8 +10,8 @@ const {
 } = VerifyController;
 
 router.get("/interactions", getUserInteractions);
-router.get("/", getFeedbacks);
-router.get("/:feedbackId", getFeedbackById);
+router.get("/", verifyToken, getFeedbacks);
+router.get("/:feedbackId", verifyToken, getFeedbackById);
 router.get("/questions/:feedbackId", getQuestions);
 
 router.post("/:postId", createFeedback);
