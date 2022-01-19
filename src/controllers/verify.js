@@ -126,16 +126,16 @@ export default class VerifyController {
       const question = await getQuestion(threatType);
       let result = "";
       switch (number) {
-        case "1":
+        case 1:
           result = question.question1;
           break;
-        case "2":
+        case 2:
           result = question.question3;
           break;
-        case "3":
+        case 3:
           result = question.question3;
           break;
-        case "4":
+        case 4:
           result = question.question4;
           break;
         default:
