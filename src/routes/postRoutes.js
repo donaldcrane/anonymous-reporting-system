@@ -22,7 +22,7 @@ router.get("/verified", getVerifiedPosts);
 router.get("/threat-locations", getHighestThreatsLocations);
 router.get("/feedbacks", verifyToken, getFeedbacks);
 router.get("/feedbacks/:feedbackId", verifyToken, getFeedbackById);
-router.get("/interactions", verifyToken, getUserInteractions);
+router.get("/interactions", getUserInteractions);
 router.get("/questions/:feedbackId", getQuestions);
 router.get("/likes", getMostLikesPosts);
 router.get("/comments", getMostCommentedPost);
