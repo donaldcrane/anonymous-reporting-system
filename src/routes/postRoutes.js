@@ -11,30 +11,21 @@ const {
   verifyPost, getNonVerifiedPosts, getMostLikesPosts,
   getVerifiedPosts, getHighestThreatsLocations, getMostCommentedPost
 } = PostController;
-const {
-  verifyPostAi, getFeedbacks, getUserInteractions,
-  saveAnswer, getQuestions, createFeedback, getFeedbackById
-} = VerifyController;
+const { verifyPostAi } = VerifyController;
 
 router.get("/", getPosts);
 router.get("/nonverified", getNonVerifiedPosts);
 router.get("/verified", getVerifiedPosts);
 router.get("/threat-locations", getHighestThreatsLocations);
-router.get("/feedbacks", verifyToken, getFeedbacks);
-router.get("/feedbacks/:feedbackId", verifyToken, getFeedbackById);
-router.get("/interactions", getUserInteractions);
-router.get("/questions/:feedbackId", getQuestions);
 router.get("/likes", getMostLikesPosts);
 router.get("/comments", getMostCommentedPost);
 router.get("/:id", getPostById);
 
 router.post("/", parser.array("media", 3), addPost);
-router.post("/feedbacks/:postId", createFeedback);
 
 router.patch("/like-post/:id", likedPost);
 router.patch("/:id", verifyToken, verifyPost);
 router.post("/verify/:id", verifyPostAi);
-router.patch("/answers/:feedbackId", saveAnswer);
 
 router.delete("/:id", verifyToken, deletePost);
 

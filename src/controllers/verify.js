@@ -78,19 +78,17 @@ export default class VerifyController {
       let type = "";
       const post = await await getPost(postId);
       const { description } = post;
-      switch (description) {
-        case description.includes("rape" || "rapping" || "sex"):
-          type = "rape";
-          break;
-        case description.includes("robbery" || "stealing" || "theft" || "heist" || "rob" || " robbing"):
-          type = "robbery";
-          break;
-        case description.includes("corruption" || "fraud" || "embezzlement"):
-          type = "corruption";
-          break;
-        default:
-          type = "others";
-          break;
+      if (description.includes("rape") || description.includes("raping") || description.includes("force") || description.includes("raped") || description.includes("sex")) {
+        type = "rape";
+      }
+      if (description.includes("robbery") || description.includes("stealing") || description.includes("theft") || description.includes("heist") || description.includes("rob") || description.includes("robing")) {
+        type = "robbery";
+      }
+      if (description.includes("corruption") || description.includes("fruad") || description.includes("looting") || description.includes("embezzlement")) {
+        type = "corruption";
+      }
+      if (!type) {
+        type = "others";
       }
       const question = await getQuestion(type);
       const { id } = question;
@@ -126,16 +124,16 @@ export default class VerifyController {
       const question = await getQuestion(threatType);
       let result = "";
       switch (number) {
-        case 1:
+        case "1":
           result = question.question1;
           break;
-        case 2:
+        case "2":
+          result = question.question2;
+          break;
+        case "3":
           result = question.question3;
           break;
-        case 3:
-          result = question.question3;
-          break;
-        case 4:
+        case "4":
           result = question.question4;
           break;
         default:
