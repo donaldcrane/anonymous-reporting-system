@@ -77,6 +77,7 @@ export default class VerifyController {
       const { postId } = req.params;
       let type = "";
       const post = await await getPost(postId);
+      console.log("post", post);
       const { description } = post;
       if (description.includes("rape") || description.includes("raping") || description.includes("force") || description.includes("raped") || description.includes("sex")) {
         type = "rape";
@@ -84,7 +85,7 @@ export default class VerifyController {
       if (description.includes("robbery") || description.includes("stealing") || description.includes("theft") || description.includes("heist") || description.includes("rob") || description.includes("robing")) {
         type = "robbery";
       }
-      if (description.includes("corruption") || description.includes("fruad") || description.includes("looting") || description.includes("embezzlement")) {
+      if (description.includes("corruption") || description.includes("fraud") || description.includes("corrupt") || description.includes("looting") || description.includes("embezzlement")) {
         type = "corruption";
       }
       if (!type) {
@@ -204,13 +205,13 @@ export default class VerifyController {
   static async getUserInteractions(req, res) {
     try {
       const rape = await database.Feedbacks.count(
-        { where: { threatType: "rape" }, }
+        { where: { verified: true, threatType: "rape" }, }
       );
       const robbery = await database.Feedbacks.count(
-        { where: { threatType: "robbery" }, }
+        { where: { verified: true, threatType: "robbery" }, }
       );
       const corruption = await database.Feedbacks.count(
-        { where: { threatType: "corruption" }, }
+        { where: { verified: true, threatType: "corruption" }, }
       );
       return res.status(200).json({
         status: 200,
