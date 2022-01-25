@@ -212,13 +212,29 @@ export default class VerifyController {
       const corruption = await database.Feedbacks.count(
         { where: { threatType: "corruption" }, }
       );
+
+      const other_cases = await database.Feedbacks.findAll(
+        {
+          where: { threatType: "others" },
+          include: [
+            { model: database.Posts, as: "posts" },
+          ]
+        }
+      );
+      let titles = [];
+      titles = other_cases.map(other => other.answer1);
+      let others = {};
+      titles.forEach(x => {
+        others[x] = (others[x] || 0) + 1;
+      });
       return res.status(200).json({
         status: 200,
         message: "Successfully retrieved interactions.",
         data: {
           rape,
           robbery,
-          corruption
+          corruption,
+          others
         }
       });
     } catch (error) {
