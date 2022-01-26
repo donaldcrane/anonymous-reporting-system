@@ -122,6 +122,7 @@ export default class PostServices {
   static async deletePost(id) {
     try {
       const Post = await database.Posts.findOne({ where: { id } });
+      await database.Feedbacks.destroy({ where: { postId: id } });
       return await Post.destroy({ cascade: true });
     } catch (err) {
       throw err;
