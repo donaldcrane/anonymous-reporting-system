@@ -45,7 +45,7 @@ export default class VerifyController {
         message: "Posts is being verified."
       });
     } catch (error) {
-      return res.status(404).json({ status: 500, error: error.message, });
+      return res.status(500).json({ status: 500, error: error.message, });
     }
   }
 

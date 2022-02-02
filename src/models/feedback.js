@@ -21,16 +21,16 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
     answer1: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       },
     answer2: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
     },
     answer3: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
     },
     answer4: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
     },
   });
   Feedback.associate = models => {

@@ -2,7 +2,7 @@ import Joi from "joi";
 
 const validateComment = comment => {
   const schema = Joi.object({
-    comment: Joi.string().required().min(3).max(500)
+    comment: Joi.string().required().min(3).max(10000)
       .empty()
       .messages({
         "any.required": "comment is required.",
