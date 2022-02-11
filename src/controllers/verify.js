@@ -77,6 +77,7 @@ export default class VerifyController {
       const { postId } = req.params;
       let type = "";
       const post = await await getPost(postId);
+      if (!post) return res.status(404).json({ status: 404, error: "Post not found." });
       const { description } = post;
       if (description.includes("rape") || description.includes("raping") || description.includes("force") || description.includes("raped") || description.includes("sex")) {
         type = "rape";
