@@ -12,7 +12,7 @@ let Copyleaks;
 const { getPost } = PostServices;
 
 const {
-  createFeedback, getAllFeedbacks, getFeedback, getQuestion
+  createFeedback, getAllFeedbacks, getFeedback, getQuestion, getAllQuestions
 } = FeedbackServices;
 /**
  * @class VerifyController
@@ -72,6 +72,24 @@ export default class VerifyController {
    * @param {object} res - The user response object
    * @returns {object} Success message
    */
+  static async getQuestionsss(req, res) {
+    try {
+      const Questions = await getAllQuestions();
+      res.status(200).json({
+        status: 200,
+        message: "Successfully retrieved all Questionsss.",
+        data: Questions,
+      });
+    } catch (error) {
+      return res.status(500).json({ status: 500, error: error.message });
+    }
+  }
+
+  /**
+   * @param {object} req - The user request object
+   * @param {object} res - The user response object
+   * @returns {object} Success message
+   */
   static async createFeedback(req, res) {
     try {
       const { postId } = req.params;
@@ -92,6 +110,7 @@ export default class VerifyController {
         type = "others";
       }
       const question = await getQuestion(type);
+      console.log(question);
       const { id } = question;
       const newPost = {
         postId, threatType: type, questionId: id

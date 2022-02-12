@@ -6,10 +6,11 @@ const router = Router();
 const { verifyToken } = Authentication;
 const {
   getFeedbacks, getUserInteractions,
-  saveAnswer, getQuestions, createFeedback, getFeedbackById
+  saveAnswer, getQuestions, createFeedback, getFeedbackById, getQuestionsss
 } = VerifyController;
 
 router.get("/interactions", getUserInteractions);
+router.get("/questions", getQuestionsss);
 router.get("/", verifyToken, getFeedbacks);
 router.get("/:feedbackId", verifyToken, getFeedbackById);
 router.get("/questions/:feedbackId", getQuestions);

@@ -34,6 +34,18 @@ export default class FeedbackServices {
   }
 
   /**
+   * @returns {object} An instance of the Posts model class
+   */
+  static async getAllQuestions() {
+    try {
+      return await database.Questions.findAll({
+      });
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  /**
    * @param {string} feedbackId - The Post id
    * @returns {object} An instance of the Posts model class
    */
