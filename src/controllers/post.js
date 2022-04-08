@@ -27,7 +27,7 @@ export default class PostController {
       if (error) {
         return res.status(400).json({ status: 400, error: error.message });
       }
-      if (!req.files) return res.status(401).json({ error: true, message: "Please provide an image." });
+      // if (!req.files) return res.status(401).json({ error: true, message: "Please provide an image." });
 
       let media = [];
       if (req.files) {
