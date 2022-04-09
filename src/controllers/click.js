@@ -54,7 +54,7 @@ export default class ClickController {
   static async getClicksBylinkname(req, res) {
     try {
       const { linkName } = req.body;
-      const Click = await getClick(linkName);
+      const Click = await getClick(linkName.toLowerCase());
       if (!Click) return res.status(404).json({ status: 404, error: "Click not found" });
       return res.status(200).json({
         status: 200,
