@@ -28,7 +28,7 @@ export default class ClickServices {
           plain: true
         });
       }
-      return await database.Clicks.create({ linkName: newClick.result, NoOfClicks: 0 });
+      return await database.Clicks.create({ linkName: newClick.result, NoOfClicks: 1 });
     } catch (err) {
       throw err;
     }
