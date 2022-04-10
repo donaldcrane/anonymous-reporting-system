@@ -16,10 +16,12 @@ export default class ClickController {
    */
   static async addNewClick(req, res) {
     try {
+      console.log("aaa");
       const { linkName } = req.body;
+      console.log(linkName);
       let result = linkName.toLowerCase();
       const newClick = {
-        result
+        linkName: result
       };
       await addClick(newClick);
       return res.status(201).json({ status: 201, message: "Success" });
