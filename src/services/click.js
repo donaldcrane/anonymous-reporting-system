@@ -14,7 +14,7 @@ export default class ClickServices {
     try {
       const clickExists = await database.Clicks.findOne({
         where: {
-          linkName: newClick.linkName
+          linkName: newClick.result
         }
       });
       if (clickExists) {
@@ -22,13 +22,13 @@ export default class ClickServices {
           NoOfClicks: +1
         }, {
           where: {
-            linkName: newClick.linkName
+            linkName: newClick.result
           },
           returning: true,
           plain: true
         });
       }
-      return await database.Clicks.create(newClick);
+      return await database.Clicks.create({ linkName: newClick.result, NoOfClicks: 1 });
     } catch (err) {
       throw err;
     }
@@ -40,7 +40,7 @@ export default class ClickServices {
    */
   static async getClick(linkName) {
     try {
-      return await database.Comments.findOne({
+      return await database.Clicks.findOne({
         where: {
           linkName
         }
