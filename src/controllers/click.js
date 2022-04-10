@@ -72,7 +72,7 @@ export default class ClickController {
   static async deleteClick(req, res) {
     try {
       const { linkName } = req.body;
-      const Click = await getClick(id);
+      const Click = await getClick(linkName);
       if (!Click) return res.status(404).json({ status: 404, error: "Click not found." });
       await deleteClick(linkName);
       return res.status(200).json({
