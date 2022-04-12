@@ -28,18 +28,23 @@ export default class VerifyController {
   static async verifyPostAi(req, res) {
     try {
       const { id } = req.params;
-      let Post;
-      let submission = (
-        Post,
-        {
-          sandbox: true,
-          webhooks: { status: "/submit-url-webhook/{STATUS}" }
-        }
-      );
-      let loginResult;
+      // let Post;
+      const { error } = validateId({ id });
+      if (error) return res.status(400).json({ status: 400, error: error.message });
+      const Post = await getPost(id);
+      if (!Post) return res.status(404).json({ status: 404, error: "Post not found" });
+      if (Post.media) {
+        let submission = (
+          Post,
+          {
+            sandbox: true,
+            webhooks: { status: "/submit-url-webhook/{STATUS}" }
+          }
+        );
+        let loginResult;
       // await copyleaks("education", loginResult, Date.now() + 1, submission);
       // copyleaks.submitFileAsync("businesses", loginResult, Date.now() + 2, submission);
-
+      }
       res.status(200).json({
         status: 200,
         message: "Posts is being verified."
@@ -110,12 +115,13 @@ export default class VerifyController {
         type = "others";
       }
       const question = await getQuestion(type);
-      console.log(question);
       const { id } = question;
       const newPost = {
         postId, threatType: type, questionId: id
       };
-
+      if (post.media) {
+        newPost.valid = true;
+      }
       const feedback = await createFeedback(newPost);
       res.status(200).json({
         status: 200,

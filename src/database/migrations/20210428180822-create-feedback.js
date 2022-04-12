@@ -20,6 +20,9 @@ module.exports = {
       threatType: {
         type: Sequelize.STRING,
       },
+      valid: {
+        type: Sequelize.BOOLEAN
+      },
       answer1: {
         type: Sequelize.TEXT,
         allowNull: true,

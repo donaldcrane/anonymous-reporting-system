@@ -16,6 +16,9 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    valid: {
+      type: DataTypes.BOOLEAN
+    },
     questionId: {
       type: DataTypes.UUID,
       allowNull: false,
