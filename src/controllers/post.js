@@ -1,3 +1,5 @@
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable no-await-in-loop */
 import PostServices from "../services/post";
 import database from "../models";
 import FeedbackServices from "../services/feedback";
@@ -151,19 +153,22 @@ export default class PostController {
     try {
       const Posts = await getNonVerifiedPosts();
       Posts.map(async post => {
-        //  const post = await await getPost(feedback.postId);
-        if (post.media) {
+        if (post.media.length !== 0) {
           await database.Feedbacks.update({ valid: true },
-            { where: { postId: post.id }, returning: true, plain: true });
+            { where: { postId: post.id } });
         }
       });
+      // for (let post in Posts) {
+      //   console.log(post);
+
+      // }
       res.status(200).json({
         status: 200,
         message: "Successfully retrieved all Non Verified Posts.",
         data: Posts,
       });
     } catch (error) {
-      return res.status(500).json({ status: 500, error: "Server error." });
+      return res.status(500).json({ status: 500, error: error.message });
     }
   }
 
