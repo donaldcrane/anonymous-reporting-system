@@ -3,6 +3,8 @@ import PostServices from "../services/post";
 import FeedbackServices from "../services/feedback";
 import { validation, validateId } from "../validations/post";
 
+const axios = require("axios");
+
 // const { Copyleaks } = require("plagiarism-checker");
 let Copyleaks;
 
@@ -119,9 +121,7 @@ export default class VerifyController {
       const newPost = {
         postId, threatType: type, questionId: id
       };
-      if (post.media) {
-        newPost.valid = true;
-      }
+
       const feedback = await createFeedback(newPost);
       res.status(200).json({
         status: 200,
@@ -280,6 +280,11 @@ export default class VerifyController {
       if (error) return res.status(400).json({ status: 400, error: error.message });
       const feedback = await getFeedback(feedbackId);
       if (!feedback) return res.status(404).json({ status: 404, error: "Feedback not found" });
+      const post = await await getPost(feedback.postId);
+      if (post.media) {
+        await database.Feedbacks.update({ valid: true },
+          { where: { id: feedbackId }, returning: true, plain: true });
+      }
       return res.status(200).json({
         status: 200,
         message: "Successfully retrieved Feedback.",
