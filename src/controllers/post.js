@@ -149,6 +149,13 @@ export default class PostController {
   static async getNonVerifiedPosts(req, res) {
     try {
       const Posts = await getNonVerifiedPosts();
+      Posts.map(async post => {
+        //  const post = await await getPost(feedback.postId);
+        if (post.media) {
+          await database.Feedbacks.update({ valid: true },
+            { where: { postId: post.id }, returning: true, plain: true });
+        }
+      });
       res.status(200).json({
         status: 200,
         message: "Successfully retrieved all Non Verified Posts.",
