@@ -1,4 +1,5 @@
 import PostServices from "../services/post";
+import database from "../models";
 import FeedbackServices from "../services/feedback";
 import { validation, validateId } from "../validations/post";
 
