@@ -133,7 +133,7 @@ export default class VerifyController {
       }
       res.status(200).json({
         status: 200,
-        message: "Successfully creted Feedback.",
+        message: "Successfully created Feedback.",
         feedback
       });
     } catch (error) {
