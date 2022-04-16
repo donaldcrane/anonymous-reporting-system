@@ -130,7 +130,11 @@ export default class VerifyController {
       if (result.data.response.solutions.re_logo.detections.length === 0) {
         await database.Feedbacks.update({ valid: true },
           { where: { postId } });
+      } else {
+        await database.Feedbacks.update({ valid: false },
+          { where: { postId } });
       }
+      console.log(result.data.response.solutions.re_logo.detections.length);
       res.status(200).json({
         status: 200,
         message: "Successfully created Feedback.",
