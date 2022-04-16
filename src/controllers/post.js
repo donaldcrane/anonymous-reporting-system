@@ -152,12 +152,7 @@ export default class PostController {
   static async getNonVerifiedPosts(req, res) {
     try {
       const Posts = await getNonVerifiedPosts();
-      Posts.map(async post => {
-        if (post.media.length !== 0) {
-          await database.Feedbacks.update({ valid: true },
-            { where: { postId: post.id } });
-        }
-      });
+
       // for (let post in Posts) {
       //   console.log(post);
 
