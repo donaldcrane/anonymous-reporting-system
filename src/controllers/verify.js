@@ -55,7 +55,8 @@ export default class VerifyController {
       } else {
         return res.status(500).json({
           status: 500,
-          message: "Sorry image contain copyright error"
+          message: "Sorry image contain copyright error",
+          data: result.data.response.solutions.re_logo.detections
         });
       }
 
