@@ -36,29 +36,6 @@ export default class VerifyController {
       if (error) return res.status(400).json({ status: 400, error: error.message });
       const Post = await getPost(id);
       if (!Post) return res.status(404).json({ status: 404, error: "Post not found" });
-      const encodedParams = new URLSearchParams();
-      encodedParams.append("image_url", Post.media[0]);
-      const options = {
-        method: "POST",
-        url: "https://restb-ai-watermark-detection.p.rapidapi.com/wmdetect",
-        headers: {
-          "content-type": "application/x-www-form-urlencoded",
-          "X-RapidAPI-Host": "restb-ai-watermark-detection.p.rapidapi.com",
-          "X-RapidAPI-Key": "27f47a0e32msh827a4659b27991dp1cbf28jsndf2a0dacbc19"
-        },
-        data: encodedParams
-      };
-      const result = await axios.request(options);
-      if (result.data.response.solutions.re_logo.detections.length === 0) {
-        await database.Feedbacks.update({ valid: true },
-          { where: { postId: id } });
-      } else {
-        return res.status(500).json({
-          status: 500,
-          message: "Sorry image contain copyright error",
-          data: result.data.response.solutions.re_logo.detections
-        });
-      }
 
       return res.status(200).json({
         status: 200,
@@ -116,6 +93,7 @@ export default class VerifyController {
       let type = "";
       const post = await await getPost(postId);
       if (!post) return res.status(404).json({ status: 404, error: "Post not found." });
+
       const { description } = post;
       if (description.includes("rape") || description.includes("raping") || description.includes("force") || description.includes("raped") || description.includes("sex")) {
         type = "rape";
@@ -136,6 +114,23 @@ export default class VerifyController {
       };
 
       const feedback = await createFeedback(newPost);
+      const encodedParams = new URLSearchParams();
+      encodedParams.append("image_url", post.media[0]);
+      const options = {
+        method: "POST",
+        url: "https://restb-ai-watermark-detection.p.rapidapi.com/wmdetect",
+        headers: {
+          "content-type": "application/x-www-form-urlencoded",
+          "X-RapidAPI-Host": "restb-ai-watermark-detection.p.rapidapi.com",
+          "X-RapidAPI-Key": "27f47a0e32msh827a4659b27991dp1cbf28jsndf2a0dacbc19"
+        },
+        data: encodedParams
+      };
+      const result = await axios.request(options);
+      if (result.data.response.solutions.re_logo.detections.length === 0) {
+        await database.Feedbacks.update({ valid: true },
+          { where: { postId } });
+      }
       res.status(200).json({
         status: 200,
         message: "Successfully creted Feedback.",
